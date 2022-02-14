@@ -10,7 +10,6 @@
  */
 'use strict';
 
-
 var inc = 1;
 
 /*
@@ -19,10 +18,10 @@ var inc = 1;
  *
  * increment(2); // returns 3
  */
-function increment (n) {
+function increment(n) {
   // fill in ...
+  return n + inc;
 }
-
 
 /*
  * This function should return a function that increments its argument by
@@ -33,10 +32,12 @@ function increment (n) {
  * incBy3(2); // returns 5
  * incBy2(2); // returns 4
  */
-function createIncrementer (base) {
+function createIncrementer(base) {
   // fill in ...
+  return function (n) {
+    return n + base;
+  };
 }
-
 
 /*
  * This function should return an object that represents a counter and contains
@@ -51,10 +52,21 @@ function createIncrementer (base) {
  * counter.dec()
  * counter.read() // returns 0
  */
-function createCounter () {
+function createCounter() {
   // fill in ...
+  let counter = 0;
+  return {
+    inc: () => {
+      return counter++;
+    },
+    dec: () => {
+      return counter--;
+    },
+    read: () => {
+      return counter;
+    },
+  };
 }
-
 
 module.exports = {
   increment,

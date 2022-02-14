@@ -19,52 +19,61 @@
  */
 'use strict';
 
-function capitaliseObjectKeys (input) {
-  const keys = Object.keys(input);
-  const result = {};
+function capitaliseString(value) {
+  return value.slice(0, 1).toUpperCase().concat(value.slice(1));
+}
 
-  for (var ii = 0; ii < keys.length; ii++) {
-    const capitalisedKey = keys[ii].slice(0, 1).toUpperCase().concat(keys[ii].slice(1));
-    result[capitalisedKey] = input[keys[ii]];
+function inc(value) {
+  return value + 1;
+}
+
+function reverseString(input) {
+  return input.split('').reverse().join('');
+}
+
+function loopKeys(input, callback) {
+  const keys = Object.keys(input);
+  for (let i = 0; i < keys.length; i++) {
+    callback(keys[i]);
   }
+}
+
+function capitaliseObjectKeys(input) {
+  const result = {};
+  loopKeys(input, key => {
+    const capitalisedKey = capitaliseString(key);
+    result[capitalisedKey] = input[key];
+  });
 
   return result;
 }
 
-
-function capitaliseObjectValues (input) {
-  const keys = Object.keys(input);
+function capitaliseObjectValues(input) {
   const result = {};
-
-  for (var ii = 0; ii < keys.length; ii++) {
-    const value = input[keys[ii]];
-    const capitalisedValue = value.slice(0, 1).toUpperCase().concat(value.slice(1));
-    result[keys[ii]] = capitalisedValue;
-  }
+  loopKeys(input, key => {
+    const capitalisedValue = capitaliseString(input[key]);
+    result[key] = capitalisedValue;
+  });
 
   return result;
 }
 
-function incrementObjectValues (input) {
-  const keys = Object.keys(input);
+function incrementObjectValues(input) {
   const result = {};
-
-  for (var ii = 0; ii < keys.length; ii++) {
-    const value = input[keys[ii]];
-    result[keys[ii]] = value + 1;
-  }
+  loopKeys(input, function (key) {
+    const incrementedValue = inc(input[key]);
+    result[key] = incrementedValue;
+  });
 
   return result;
 }
 
-function reverseObjectKeys (input) {
-  const keys = Object.keys(input);
+function reverseObjectKeys(input) {
   const result = {};
-
-  for (var ii = 0; ii < keys.length; ii++) {
-    const reversedKey = keys[ii].split('').reverse().join('');
-    result[reversedKey] = input[keys[ii]];
-  }
+  loopKeys(input, key => {
+    const reversedKey = reverseString(key);
+    result[reversedKey] = input[key];
+  });
 
   return result;
 }
